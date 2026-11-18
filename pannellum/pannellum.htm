@@ -137,21 +137,28 @@ c.config.lastIndexOf("/")+1));for(var p in l)c.hasOwnProperty(p)||(c[p]=l[p]);"t
 
         var htmlUrl = "https://kliff-tv.s3.us-east-1.amazonaws.com/vos/files/" + slug + ".html";
 
-        fetch(htmlUrl)
-            .then(function(response) {
-                if (!response.ok) {
-                    throw new Error("HTTP " + response.status);
-                }
-                return response.text();
-            })
-            .then(function(pageHtml) {
-                document.open();
-                document.write(pageHtml);
-                document.close();
-            })
-            .catch(function(error) {
-                anError("Could not load " + htmlUrl + ": " + error.message);
-            });
+        var frame = document.createElement("iframe");
+        frame.src = htmlUrl;
+        frame.title = "Amazon S3 page";
+        frame.style.position = "fixed";
+        frame.style.top = "0";
+        frame.style.left = "0";
+        frame.style.width = "100%";
+        frame.style.height = "100%";
+        frame.style.border = "0";
+        frame.style.margin = "0";
+        frame.style.padding = "0";
+
+        document.documentElement.style.width = "100%";
+        document.documentElement.style.height = "100%";
+        document.documentElement.style.margin = "0";
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.width = "100%";
+        document.body.style.height = "100%";
+        document.body.style.margin = "0";
+        document.body.style.overflow = "hidden";
+        document.body.innerHTML = "";
+        document.body.appendChild(frame);
     } else {
         "file:" == window.location.protocol
             ? anError("Due to browser security restrictions, Pannellum can't be run from the local filesystem; some sort of web server must be used.")
