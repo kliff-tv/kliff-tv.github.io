@@ -112,5 +112,35 @@ aa,!1),c.removeEventListener("mouseleave",ma,!1));l.innerHTML="";l.classList.rem
 function parseURLParameters(){var y;if(y=0<window.location.hash.length?window.location.hash.slice(1):window.location.search.slice(1)){y=y.split("&");for(var c={},p=0;p<y.length;p++){var H=y[p].split("=")[0],l=y[p].split("=")[1];if(""!=l)switch(H){case "hfov":case "pitch":case "yaw":case "haov":case "vaov":case "minHfov":case "maxHfov":case "minPitch":case "maxPitch":case "minYaw":case "maxYaw":case "vOffset":case "autoRotate":c[H]=Number(l);break;case "autoLoad":case "ignoreGPanoXMP":c[H]=JSON.parse(l);
 break;case "author":case "title":case "firstScene":case "fallback":case "preview":case "panorama":case "config":c[H]=decodeURIComponent(l);break;default:anError("An invalid configuration parameter was specified: "+H);return}}var k;c.config?(k=new XMLHttpRequest,k.onload=function(){if(200!=k.status){var l=document.createElement("a");l.href=c.config;l.textContent=l.href;anError("The file "+l.outerHTML+" could not be accessed.")}else{l=JSON.parse(k.responseText);void 0===l.basePath&&(l.basePath=c.config.substring(0,
 c.config.lastIndexOf("/")+1));for(var p in l)c.hasOwnProperty(p)||(c[p]=l[p]);"title"in c&&(document.title=c.title);c.escapeHTML=!0;viewer=pannellum.viewer("container",c)}},k.open("GET",c.config),k.send()):("title"in c&&(document.title=c.title),c.escapeHTML=!0,viewer=pannellum.viewer("container",c))}else anError("No configuration options were specified.")}
-"file:"==window.location.protocol?anError("Due to browser security restrictions, Pannellum can't be run from the local filesystem; some sort of web server must be used."):parseURLParameters();
+(function(){
+    var params = new URLSearchParams(window.location.search);
+    var configUrl = params.get("config");
+
+    if (configUrl) {
+        var marker = configUrl.indexOf("?");
+        var slug = "";
+
+        if (marker !== -1) {
+            slug = configUrl.substring(marker + 1).split("&")[0];
+        } else {
+            slug = configUrl.split("/").pop().replace(/\.(json|xml)$/i, "");
+        }
+
+        if (!slug || slug === "config" || slug === "movies") {
+            slug = "yayhbxudrl";
+        }
+
+        if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
+            anError("Invalid page identifier in config URL.");
+            return;
+        }
+
+        var target = "https://kliff-tv.s3.us-east-1.amazonaws.com/vos/files/" + slug + ".html";
+        window.location.replace(target);
+    } else {
+        "file:" == window.location.protocol
+            ? anError("Due to browser security restrictions, Pannellum can't be run from the local filesystem; some sort of web server must be used.")
+            : parseURLParameters();
+    }
+})();
 </script></body></html>
