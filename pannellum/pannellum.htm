@@ -88,7 +88,7 @@ DeviceOrientationEvent.requestPermission().then(function(a){"granted"==a&&(Y=1,y
 String(a).split("\n").join("<br>")}function J(a,b){try{var c=decodeURIComponent(ab(a)).replace(/[^\w:]/g,"").toLowerCase()}catch(d){return"about:blank"}return 0===c.indexOf("javascript:")||0===c.indexOf("vbscript:")?(console.log("Script URL removed."),"about:blank"):b&&0===c.indexOf("data:")?(console.log("Data URI removed from link."),"about:blank"):a}function ab(a){return a.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/ig,function(a,b){b=b.toLowerCase();return"colon"===b?":":"#"===b.charAt(0)?
 "x"===b.charAt(1)?String.fromCharCode(parseInt(b.substring(2),16)):String.fromCharCode(+b.substring(1)):""})}function C(a){if(a in U)for(var b=U[a].length;0<b;b--)U[a][U[a].length-b].apply(null,[].slice.call(arguments,1))}var ea=this,b,D,ra,ia=!1,O=Date.now(),wa=0,xa=0,Fa=-1,Ma=0,Na=0,r=Array(10),za=!1,G,La=!1,Sa=!1,R,ca,w={yaw:0,pitch:0,hfov:0},Ta=!1,Y=!1,$a=0,Oa,$=0,qa,Ea,P={},U={},ba=[],Ka=!1,Ua=!1,Za=!1,Va={hfov:100,minHfov:50,multiResMinHfov:!1,maxHfov:120,pitch:0,minPitch:p,maxPitch:p,yaw:0,
 minYaw:-180,maxYaw:180,roll:0,haov:360,vaov:180,vOffset:0,autoRotate:!1,autoRotateInactivityDelay:-1,autoRotateStopDelay:p,type:"equirectangular",northOffset:0,showFullscreenCtrl:!0,dynamic:!1,dynamicUpdate:!1,doubleClickZoom:!0,keyboardZoom:!0,mouseZoom:!0,showZoomCtrl:!0,autoLoad:!1,showControls:!0,orientationOnByDefault:!1,hotSpotDebug:!1,backgroundColor:[0,0,0],avoidShowingBackground:!1,animationTimingFunction:function(a){return 0.5>a?2*a*a:-1+(4-2*a)*a},draggable:!0,disableKeyboardCtrl:!1,crossOrigin:"anonymous",
-touchPanSpeedCoeffFactor:1,capturedKeyNumbers:[16,17,27,37,38,39,40,61,65,68,83,87,107,109,173,187,189],friction:0.15,strings:{loadButtonLabel:"Click to<br>Load<br>Panorama",loadingLabel:"Loading...",bylineLabel:"by %s",noPanoramaError:"No panorama image was specified.",fileAccessError:"The file %s could not be accessed.",malformedURLError:"There is something wrong with the panorama URL.",iOS8WebGLError:"Due to iOS 8's broken WebGL implementation, only progressive encoded JPEGs work for your device (this panorama uses standard encoding).",
+touchPanSpeedCoeffFactor:1,capturedKeyNumbers:[16,17,27,37,38,39,40,61,65,68,83,87,107,109,173,187,189],friction:0.15,strings:{loadButtonLabel:"صورة/Photo 360°",loadingLabel:"...",bylineLabel:"by %s",noPanoramaError:"No panorama image was specified.",fileAccessError:"The file %s could not be accessed.",malformedURLError:"There is something wrong with the panorama URL.",iOS8WebGLError:"Due to iOS 8's broken WebGL implementation, only progressive encoded JPEGs work for your device (this panorama uses standard encoding).",
 genericWebGLError:"Your browser does not have the necessary WebGL support to display this panorama.",textureSizeError:"This panorama is too big for your device! It's %spx wide, but your device only supports images up to %spx wide. Try another device. (If you're the author, try scaling down the image.)",unknownError:"Unknown error. Check developer console."}};l="string"===typeof l?c.getElementById(l):l;l.classList.add("pnlm-container");l.tabIndex=0;var K=c.createElement("div");K.className="pnlm-ui";
 l.appendChild(K);var N=c.createElement("div");N.className="pnlm-render-container";l.appendChild(N);var X=c.createElement("div");X.className="pnlm-dragfix";K.appendChild(X);var ga=c.createElement("span");ga.className="pnlm-about-msg";ga.innerHTML='<a href="https://pannellum.org/" target="_blank">Pannellum</a> 2.5.6';K.appendChild(ga);X.addEventListener("contextmenu",Aa);var q={},Wa=c.createElement("div");Wa.className="pnlm-sprite pnlm-hot-spot-debug-indicator";K.appendChild(Wa);q.container=c.createElement("div");
 q.container.className="pnlm-panorama-info";q.title=c.createElement("div");q.title.className="pnlm-title-box";q.container.appendChild(q.title);q.author=c.createElement("div");q.author.className="pnlm-author-box";q.container.appendChild(q.author);K.appendChild(q.container);q.load={};q.load.box=c.createElement("div");q.load.box.className="pnlm-load-box";q.load.boxp=c.createElement("p");q.load.box.appendChild(q.load.boxp);q.load.lbox=c.createElement("div");q.load.lbox.className="pnlm-lbox";q.load.lbox.innerHTML=
@@ -112,57 +112,5 @@ aa,!1),c.removeEventListener("mouseleave",ma,!1));l.innerHTML="";l.classList.rem
 function parseURLParameters(){var y;if(y=0<window.location.hash.length?window.location.hash.slice(1):window.location.search.slice(1)){y=y.split("&");for(var c={},p=0;p<y.length;p++){var H=y[p].split("=")[0],l=y[p].split("=")[1];if(""!=l)switch(H){case "hfov":case "pitch":case "yaw":case "haov":case "vaov":case "minHfov":case "maxHfov":case "minPitch":case "maxPitch":case "minYaw":case "maxYaw":case "vOffset":case "autoRotate":c[H]=Number(l);break;case "autoLoad":case "ignoreGPanoXMP":c[H]=JSON.parse(l);
 break;case "author":case "title":case "firstScene":case "fallback":case "preview":case "panorama":case "config":c[H]=decodeURIComponent(l);break;default:anError("An invalid configuration parameter was specified: "+H);return}}var k;c.config?(k=new XMLHttpRequest,k.onload=function(){if(200!=k.status){var l=document.createElement("a");l.href=c.config;l.textContent=l.href;anError("The file "+l.outerHTML+" could not be accessed.")}else{l=JSON.parse(k.responseText);void 0===l.basePath&&(l.basePath=c.config.substring(0,
 c.config.lastIndexOf("/")+1));for(var p in l)c.hasOwnProperty(p)||(c[p]=l[p]);"title"in c&&(document.title=c.title);c.escapeHTML=!0;viewer=pannellum.viewer("container",c)}},k.open("GET",c.config),k.send()):("title"in c&&(document.title=c.title),c.escapeHTML=!0,viewer=pannellum.viewer("container",c))}else anError("No configuration options were specified.")}
-(function(){
-    var params = new URLSearchParams(window.location.search);
-    var configUrl = params.get("config");
-
-    if (configUrl) {
-        var slug = "";
-        var queryPosition = configUrl.indexOf("?");
-
-        if (queryPosition !== -1) {
-            slug = configUrl.substring(queryPosition + 1).split("&")[0];
-        } else {
-            slug = configUrl.split("/").pop().replace(/\.(json|xml)$/i, "");
-        }
-
-        if (!slug || slug === "config" || slug === "movies") {
-            slug = "yayhbxudrl";
-        }
-
-        if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
-            anError("Invalid page identifier in config URL.");
-            return;
-        }
-
-        var htmlUrl = "https://kliff-tv.s3.us-east-1.amazonaws.com/vos/files/" + slug + ".html";
-
-        var frame = document.createElement("iframe");
-        frame.src = htmlUrl;
-        frame.title = "Amazon S3 page";
-        frame.style.position = "fixed";
-        frame.style.top = "0";
-        frame.style.left = "0";
-        frame.style.width = "100%";
-        frame.style.height = "100%";
-        frame.style.border = "0";
-        frame.style.margin = "0";
-        frame.style.padding = "0";
-
-        document.documentElement.style.width = "100%";
-        document.documentElement.style.height = "100%";
-        document.documentElement.style.margin = "0";
-        document.documentElement.style.overflow = "hidden";
-        document.body.style.width = "100%";
-        document.body.style.height = "100%";
-        document.body.style.margin = "0";
-        document.body.style.overflow = "hidden";
-        document.body.innerHTML = "";
-        document.body.appendChild(frame);
-    } else {
-        "file:" == window.location.protocol
-            ? anError("Due to browser security restrictions, Pannellum can't be run from the local filesystem; some sort of web server must be used.")
-            : parseURLParameters();
-    }
-})();
+"file:"==window.location.protocol?anError("Due to browser security restrictions, Pannellum can't be run from the local filesystem; some sort of web server must be used."):parseURLParameters();
 </script></body></html>
